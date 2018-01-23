@@ -1,6 +1,6 @@
 all: thesis
 
-front_len = 8
+front_len = 9
 
 intro:
 	latex thesis

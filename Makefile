@@ -1,4 +1,3 @@
-front_len = 1
 
 includes := $(basename $(notdir $(wildcard chp/*.tex)))
 
@@ -12,7 +11,7 @@ $(includes) :
 	biber int
 	latex -jobname=int "\includeonly{chp/$@}\input{thesis}"
 	pdflatex -jobname=int "\includeonly{chp/$@}\input{thesis}"
-	qpdf int.pdf --empty --pages int.pdf $(front_len)-r1 -- $@.pdf
+	qpdf int.pdf --empty --pages int.pdf 1-z -- $@.pdf
 	rm int.*
 	make clean
 

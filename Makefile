@@ -1,11 +1,11 @@
-all: thesis
+.PHONY : all
+all : thesis
 
 front_len = 9
 
 includes := $(basename $(notdir $(wildcard inc/*.tex)))
 
-.PHONY: $(includes)
-
+.PHONY : $(includes)
 $(includes) :
 	latex thesis
 	latex -jobname=int "\includeonly{inc/$@}\input{thesis}"
@@ -16,12 +16,13 @@ $(includes) :
 	rm int.*
 	make clean
 
-# thesis:
-# 	latex thesis
-# 	biber thesis
-# 	latex thesis
-# 	pdflatex thesis
-# 	make clean
+.PHONY : thesis
+thesis :
+	latex thesis
+	biber thesis
+	latex thesis
+	pdflatex thesis
+	make clean
 
 
 clean:

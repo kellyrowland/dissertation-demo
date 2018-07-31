@@ -1,6 +1,6 @@
-front_len = 9
+front_len = 1
 
-includes := $(basename $(notdir $(wildcard inc/*.tex)))
+includes := $(basename $(notdir $(wildcard chp/*.tex)))
 
 .PHONY : all
 all : thesis
@@ -8,10 +8,10 @@ all : thesis
 .PHONY : $(includes)
 $(includes) :
 	latex thesis
-	latex -jobname=int "\includeonly{inc/$@}\input{thesis}"
+	latex -jobname=int "\includeonly{chp/$@}\input{thesis}"
 	biber int
-	latex -jobname=int "\includeonly{inc/$@}\input{thesis}"
-	pdflatex -jobname=int "\includeonly{inc/$@}\input{thesis}"
+	latex -jobname=int "\includeonly{chp/$@}\input{thesis}"
+	pdflatex -jobname=int "\includeonly{chp/$@}\input{thesis}"
 	qpdf int.pdf --empty --pages int.pdf $(front_len)-r1 -- $@.pdf
 	rm int.*
 	make clean

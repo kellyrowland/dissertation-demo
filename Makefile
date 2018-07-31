@@ -4,11 +4,12 @@ front_len = 9
 
 intro:
 	latex thesis
-	latex -jobname=int "\includeonly{intro}\input{thesis}"
+	latex -jobname=int "\includeonly{inc/intro}\input{thesis}"
 	biber int
-	latex -jobname=int "\includeonly{intro}\input{thesis}"
-	pdflatex -jobname=int "\includeonly{intro}\input{thesis}"
-	pdftk int.pdf cat $(front_len)-end output intro.pdf
+	latex -jobname=int "\includeonly{inc/intro}\input{thesis}"
+	pdflatex -jobname=int "\includeonly{inc/intro}\input{thesis}"
+	qpdf int.pdf --empty --pages int.pdf $(front_len)-r1 -- intro.pdf
+#pdftk int.pdf cat $(front_len)-end output intro.pdf
 	rm int.*
 	make clean
 

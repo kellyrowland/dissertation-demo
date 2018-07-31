@@ -1,9 +1,9 @@
-.PHONY : all
-all : thesis
-
 front_len = 9
 
 includes := $(basename $(notdir $(wildcard inc/*.tex)))
+
+.PHONY : all
+all : thesis
 
 .PHONY : $(includes)
 $(includes) :

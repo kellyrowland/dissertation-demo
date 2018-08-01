@@ -32,6 +32,15 @@
 \apptocmd{\listoffigures}{\let\cite\oldcite}{}{}
 \makeatother
 
+% Get job name
+\def\StripPrefix#1>{}
+\def\jobis#1{FF\fi
+  \def\predicate{#1}%
+  \edef\predicate{\expandafter\StripPrefix\meaning\predicate}%
+  \edef\job{\jobname}%
+  \ifx\job\predicate
+}
+
 % To compile this file, run "latex thesis", then "biber thesis"
 % (or "bibtex thesis", if the output from latex asks for that instead),
 % and then "latex thesis" (without the quotes in each case).
@@ -72,12 +81,15 @@
 %\emphasis{Computational and Data Science and Engineering}
 \campus{Berkeley}
 
-\maketitle
-% Delete (or comment out) the \approvalpage line for the final version.
-\approvalpage
-\copyrightpage
+\if\jobis{thesis}
 
-\include{abstract}
+  \maketitle
+  % Delete (or comment out) the \approvalpage line for the final version.
+  \approvalpage
+  \copyrightpage
+
+  \include{chp/abstract}
+\fi
 
 \begin{frontmatter}
 
@@ -90,12 +102,12 @@
 % to show paragraphs in ToC (good for an outline, stylistically ugly):
 % \setcounter{secnumdepth}{4}
 % \setcounter{tocdepth}{4}
-
-\tableofcontents
-\clearpage
-\listoffigures
-\clearpage
-\listoftables
+\if\jobis{thesis}
+  \tableofcontents
+  \clearpage
+  \listoffigures
+  \clearpage
+  \listoftables
 
 \begin{acknowledgements}
 
@@ -108,26 +120,19 @@ graduate fellowship as well as supported by the Department
 of Excellence under Award Number(s) 31337.}
 
 \end{acknowledgements}
-
+\fi
+  
 \end{frontmatter}
 
 \pagestyle{headings}
 
 % (Optional) \part{First Part}
 
-\include{intro}
-\include{background}
-\include{method}
-\include{results}
-\include{conclusion}
-
-\def\StripPrefix#1>{}
-\def\jobis#1{FF\fi
-  \def\predicate{#1}%
-  \edef\predicate{\expandafter\StripPrefix\meaning\predicate}%
-  \edef\job{\jobname}%
-  \ifx\job\predicate
-}
+\include{chp/intro}
+\include{chp/background}
+\include{chp/method}
+\include{chp/results}
+\include{chp/conclusion}
 
 \if\jobis{thesis}
   \printbibliography
@@ -141,3 +146,8 @@ of Excellence under Award Number(s) 31337.}
 % \include{mathbg}
 
 \end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
